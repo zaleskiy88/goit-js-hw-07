@@ -6,18 +6,18 @@ const galleryMarkup = galleryItems.map((item) => {
   const galleryItem = document.createElement("div");
   galleryItem.classList.add("gallery__item");
 
-  const galleryRef = document.createElement("a");
-  galleryRef.classList.add("gallery__link");
-  galleryRef.setAttribute("href", `${item.original}`);
+  const galleryItemRef = document.createElement("a");
+  galleryItemRef.classList.add("gallery__link");
+  galleryItemRef.setAttribute("href", `${item.original}`);
 
-  const galleryImg = document.createElement("img");
-  galleryImg.classList.add("gallery__image");
-  galleryImg.setAttribute("src", `${item.preview}`);
-  galleryImg.setAttribute("data-source", `${item.original}`);
-  galleryImg.setAttribute("alt", `${item.description}`);
+  const galleryItemImg = document.createElement("img");
+  galleryItemImg.classList.add("gallery__image");
+  galleryItemImg.setAttribute("src", `${item.preview}`);
+  galleryItemImg.setAttribute("data-source", `${item.original}`);
+  galleryItemImg.setAttribute("alt", `${item.description}`);
 
-  galleryRef.append(galleryImg);
-  galleryItem.append(galleryRef);
+  galleryItemRef.append(galleryItemImg);
+  galleryItem.append(galleryItemRef);
 
   return galleryItem;
 });
@@ -25,7 +25,6 @@ const galleryMarkup = galleryItems.map((item) => {
 gallery.append(...galleryMarkup);
 
 //------------------------Modal---------------------------//
-
 gallery.addEventListener("click", (event) => {
   if (event.target.nodeName !== "IMG") {
     return;
@@ -33,15 +32,17 @@ gallery.addEventListener("click", (event) => {
 
   event.preventDefault();
 
-  const modal = basicLightbox.create(
+  //--------Openning modal image
+  const modalImg = basicLightbox.create(
     `<img class="modal__img" src="${event.target.dataset.source}" data-source="${event.target.dataset.source}" alt="${event.target.alt}">`
   );
-  modal.show();
+  modalImg.show();
+  //-----------------------------------
 
+  //--------Closing modal image on keypress "ESC"
   document.addEventListener("keydown", (event) => {
     if (event.code === "Escape") {
-      modal.close();
+      modalImg.close();
     }
   });
 });
-console.log();
