@@ -3,26 +3,15 @@ import { galleryItems } from "./gallery-items.js";
 
 const gallery = document.querySelector(".gallery");
 
-const galleryMarkup = galleryItems.map((item) => {
-  const galleryItem = document.createElement("div");
-  galleryItem.classList.add("gallery-item__wrapper");
+const galleryMarkup = galleryItems
+  .map((item) => {
+    return `<a class="gallery__item" href="${item.original}">
+  <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
+</a>`;
+  })
+  .join("");
 
-  const galleryRef = document.createElement("a");
-  galleryRef.classList.add("gallery__item");
-  galleryRef.setAttribute("href", `${item.original}`);
-
-  const galleryImg = document.createElement("img");
-  galleryImg.classList.add("gallery__image");
-  galleryImg.setAttribute("src", `${item.preview}`);
-  galleryImg.setAttribute("alt", `${item.description}`);
-
-  galleryRef.append(galleryImg);
-  galleryItem.append(galleryRef);
-
-  return galleryItem;
-});
-
-gallery.append(...galleryMarkup);
+gallery.insertAdjacentHTML("beforeend", galleryMarkup);
 
 //----------------------Modal--------------------
 
